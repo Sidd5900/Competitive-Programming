@@ -1,0 +1,229 @@
+#include<bits/stdc++.h>
+using namespace std;
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+#define int long long
+#define ll int
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define fo(i,a,b) for(int i=a;i<b;i++)
+#define all(x) x.begin(),x.end()
+#define trav(x) for(auto it=x.begin();it!=x.end();it++)
+#define mod 1000000007
+#define Endl endl
+#define pb push_back
+#define mp make_pair
+#define inf 1e9
+#define linf 1e18
+#define ld long double
+typedef pair<int, int> ii;
+typedef vector<ii> vii;
+typedef set<int> si;
+typedef map<string, int> msi;
+#define watch(x) cout << (#x) << " is " << (x) << endl
+#define debug(a) cerr << #a << ": " << a << endl
+#define ordered_set tree<ii safeseq.push_back(i);
+#define fastio ios_base::sync_with_stdio(false);cin.tie(0);
+#define minheap priority_queue<int,vector<int>,greater<int>>
+//#define minheap priority_queue<ii,vector<ii>,greater<ii>> //for min heap of pair
+//order_of_key (k) : Number of items strictly smaller than k .
+//find_by_order(k) : K-th element in a set (counting from zero)
+
+
+/***************************************************************************************************/
+
+const int N=100005;
+const int LIM=200005;
+
+// O(sqrt(n))
+bool isPrime(int n)
+{
+    if (n <= 1)
+        return false;
+    for(int i=2;i*i<=n;i++)
+    {
+        if(n%i==0)
+            return false;
+    }
+    return true;
+}
+
+
+// O(n log(log n))
+bool prime[N];
+void sieve(int n)
+{
+    memset(prime, true, sizeof(prime));
+    for (int p=2; p*p<=n; p++)
+        if (prime[p] == true)
+            for (int i=p*p; i<=n; i += p)
+                prime[i] = false;
+    prime[1]=0;
+}
+
+
+//O(sqrt n)
+vi divisors(int n)
+{
+    vi ans;
+    for(int i=1;i*i<=n;i++)
+    {
+        if(n%i==0)
+        {
+            ans.push_back(i);
+            if(i*i!=n)
+                ans.push_back(n/i);
+        }
+    }
+    return ans;
+}
+
+vi divi[N];
+//O(N log N) => sum of no. of divisors from 1 to n bounded by N log N
+void alldivisors()
+{
+    for(int i=1;i<N;i++)
+    {
+        for(int j=i;j<N;j+=i)
+        {
+            divi[j].push_back(i);
+        }
+    }
+}
+
+
+vii pf;
+//O(sqrt n)
+void factorize(int n)
+{
+    for(int i=2;i*i<=n;i++)
+    {
+        int cnt=0;
+        while(n%i==0)
+        {
+            n=n/i;
+            cnt++;
+        }
+        if(cnt)
+        pf.push_back({i,cnt});
+    }
+    if(n>1)
+    pf.push_back({n,1});
+}
+
+
+int minPrime[N];
+//O(n log(log n))
+void minSieve()
+{
+    for(int i=2;i<N;i++)
+    {
+        minPrime[i]=i;
+    }
+    for(int i=2;i<N;i++)
+    {
+        if(minPrime[i]==i)
+        {
+            for(int j=2*i;j<N;j+=i)
+            {
+                if(minPrime[j]==j)
+                    minPrime[j]=i;
+            }
+        }
+
+    }
+}
+
+
+map<int,int>mpf;
+//O(log n) per query but requires pre computation of O(n log log n)
+void fastFactorize(int n)
+{
+    while(n>1)
+    {
+        int x=minPrime[n];
+        mpf[x]++;
+        n=n/x;
+    }
+}
+
+
+//find primes between l and r where 0<l<=r<=10^12 and r-l<=10^6
+//O((r-l)log(r)) and pre computation O(N log log N) where N= sqrt r
+void segmentedSieve(int l,int r)
+{
+    sieve(N-1);
+    bool primelr[r-l+1];
+    for(int i=0;i<=r-l;i++)
+        primelr[i]=true;
+
+
+
+    for(int i=2;i*i<=r;i++)
+    {
+        if(prime[i])
+        {
+            int x=((l+i-1)/i)*i;
+            for(int j=x;j<=r;j+=i)
+            {
+                if(j!=i)
+                    primelr[j-l]=false;
+            }
+        }
+    }
+
+    for(int i=l;i<=r;i++)
+    {
+        cout<<i<<" "<<primelr[i-l]<<endl;
+    }
+}
+
+
+void solve()
+{
+    /*int n;
+    cin>>n;
+    factorize(n);
+    for(auto x: pf)
+    {
+        cout<<x.first<<" "<<x.second<<Endl;
+    }*/
+
+    /*minSieve();
+
+    fastFactorize(n);
+    for(auto x:mpf)
+    {
+        cout<<x.first<<" "<<x.second<<endl;
+    }*/
+
+    /*vi ans= divisors(n);
+    for(auto x:ans)
+        cout<<x<<" ";*/
+
+    //segmentedSieve(1e12-20, 1e12);
+
+    /*alldivisors();
+    for(auto x:divi[36])
+        cout<<x<<" ";
+    */
+
+
+}
+
+
+int32_t main()
+{
+ fastio
+//freopen("input.txt", "r", stdin);
+//freopen("output.txt", "w", stdout);
+  int t=1;
+
+  for(int i=1;i<=t;i++)
+  {
+    //cout<<"Case #"<<i<<": ";
+    solve();
+  }
+ return 0;
+}

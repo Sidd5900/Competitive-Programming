@@ -1,0 +1,116 @@
+#include<bits/stdc++.h>
+using namespace std;
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+#define int long long
+#define ll int
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define fo(i,a,b) for(int i=a;i<b;i++)
+#define all(x) x.begin(),x.end()
+#define trav(x) for(auto it=x.begin();it!=x.end();it++)
+#define mod 1000000007
+#define Endl '\n'
+#define endl '\n'
+#define PB push_back
+#define MP make_pair
+#define F first
+#define S second
+#define inf 1e9
+#define linf 1e18
+#define ld long double
+typedef pair<int, int> ii;
+typedef vector<ii> vii;
+typedef set<int> si;
+typedef map<string, int> msi;
+#define watch(x) cout << (#x) << " is " << (x) << endl
+#define debug(a) cerr << #a << ": " << a << endl
+#define ordered_set tree<ii safeseq.push_back(i);
+#define fastio ios_base::sync_with_stdio(false);cin.tie(0);
+#define minheap priority_queue<int,vector<int>,greater<int>>
+//#define minheap priority_queue<ii,vector<ii>,greater<ii>> //for min heap of pair
+//order_of_key (k) : Number of items strictly smaller than k .
+//find_by_order(k) : K-th element in a set (counting from zero)
+
+
+/***************************************************************************************************/
+
+const int N  = 200005;
+const int LIM=200005;
+
+vi adj[N];
+bool visited[N];
+int tin[N];
+int low[N];
+int timer;
+set<int> cutpoints;
+
+void dfs(int u, int par)
+{
+    int child=0;
+    tin[u]=low[u]=timer++;
+    visited[u]=1;
+    for(auto v:adj[u])
+    {
+        if(v!=par)
+        {
+            if(visited[v])
+            {
+                low[u]=min(low[u], tin[v]);
+            }
+            else
+            {
+                child++;
+                dfs(v,u);
+                low[u] = min(low[u], low[v]);
+                if(low[v]>=tin[u] && par!=-1)
+                {
+                    cutpoints.insert(u);
+                }
+            }
+        }
+        if(par==-1 && child>1)
+        {
+            cutpoints.insert(1);
+        }
+    }
+}
+
+
+void solve()
+{
+    int n,m,a,b;
+    cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        cin>>a>>b;
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+    for(int i=1;i<=n;i++)
+    {
+        if(!visited[i])
+        {
+            dfs(i,-1);
+        }
+    }
+    for(auto x:cutpoints)
+    {
+        cout<<x<<" ";
+    }
+
+
+}
+int32_t main()
+{
+  fastio
+  int t=1;
+  // cin>>t;
+  for(int i=1;i<=t;i++)
+  {
+    // cout<<"Case #"<<i<<": "<<endl;
+    solve();
+  }
+ return 0;
+}

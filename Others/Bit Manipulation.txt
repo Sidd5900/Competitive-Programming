@@ -1,0 +1,127 @@
+#include<bits/stdc++.h>
+using namespace std;
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+#define int long long
+#define ll int
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define fo(i,a,b) for(int i=a;i<b;i++)
+#define all(x) x.begin(),x.end()
+#define trav(x) for(auto it=x.begin();it!=x.end();it++)
+#define mod 1000000007
+#define Endl endl
+#define pb push_back
+#define mp make_pair
+#define inf 1e9
+#define linf 1e18
+#define ld long double
+typedef pair<int, int> ii;
+typedef vector<ii> vii;
+typedef set<int> si;
+typedef map<string, int> msi;
+#define watch(x) cout << (#x) << " is " << (x) << endl
+#define debug(a) cerr << #a << ": " << a << endl
+#define ordered_set tree<ii safeseq.push_back(i);
+#define fastio ios_base::sync_with_stdio(false);cin.tie(0);
+#define minheap priority_queue<int,vector<int>,greater<int>>
+//#define minheap priority_queue<ii,vector<ii>,greater<ii>> //for min heap of pair
+//order_of_key (k) : Number of items strictly smaller than k .
+//find_by_order(k) : K-th element in a set (counting from zero)
+
+
+/***************************************************************************************************/
+
+const int N=1000005;
+const int LIM=200005;
+
+void solve()
+{
+    /*int a= 24;
+    cout<<__builtin_popcount(a)<<Endl; // no. of ones
+    cout<<__builtin_clz(a)<<Endl;      //cnt of leading zeros
+    cout<<__builtin_ctz(a)<<Endl;      //cnt of trailing zeros
+    */
+
+    /*//count no. of ones
+    int n=30;
+    int cnt=0;
+    while(n!=0)
+    {
+        n= n&(n-1);     //unset the last one(least significant)
+        cnt++;
+    }
+    cout<<cnt<<Endl;*/
+
+    /*//unset the ith bit
+    int n=30;
+    int i=3;
+    int mask = 1<<i;
+    mask = ~mask;
+    n= n&mask;
+    cout<<n<<endl;*/
+
+    /*//1^2^3^4 ....... upto (1e18) -> periodicity of 4
+    int n= 1e18;
+    int r=n%4;
+    int ans;
+    if(r==0)
+        ans=n;
+    else if(r==1)
+        ans=1;
+    else if(r==2)
+        ans=n+1;
+    else
+        ans=0;
+    cout<<ans<<endl;*/
+
+    /*//sub mask
+    int n=6;
+    for(int mask=0;mask<(1<<n);mask++)
+    {
+        for(int sub=mask;sub; sub=(sub-1)&mask)
+        {
+            if(mask==12)
+            cout<<sub<<" ";
+        }
+    }*/
+
+    /*//find summation arr[i] ^ arr[j] for all pair of i,j
+    //solve bit by bit and then multiply with the contribution of each bit
+    //O(nlogn)
+    int n,x;
+    int cnt[31]={0};//cnt of 1s in the ith bit
+    cin>>n;
+    fo(i,0,n)
+    {
+        cin>>x;
+        for(int j=0;j<31;j++)
+            if((x>>j) & 1)  //if jth bit of x is 1
+                cnt[j]++;
+    }
+    int ans=0;
+    for(int i=0;i<31;i++)
+    {
+        int temp= cnt[i];
+        ans+= temp*(n-temp)*(1<<i);
+    }
+    cout<<ans<<Endl;*/
+    
+    //max xor of two numbers in an array using trie
+
+}
+int32_t main()
+{
+ fastio
+//freopen("input.txt", "r", stdin);
+//freopen("output.txt", "w", stdout);
+  int t=1;
+ // cin>>t;
+  for(int i=1;i<=t;i++)
+  {
+    //cout<<"Case #"<<i<<": ";
+    solve();
+  }
+ return 0;
+}

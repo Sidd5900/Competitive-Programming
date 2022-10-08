@@ -1,0 +1,93 @@
+#include<bits/stdc++.h>
+using namespace std;
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+#define int long long
+#define ll int
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define fo(i,a,b) for(int i=a;i<b;i++)
+#define all(x) x.begin(),x.end()
+#define trav(x) for(auto it=x.begin();it!=x.end();it++)
+#define mod 1000000007
+#define Endl '\n'
+#define endl '\n'
+#define PB push_back
+#define MP make_pair
+#define F first
+#define S second
+#define inf 1e9
+#define linf 1e18
+#define ld long double
+typedef pair<int, int> ii;
+typedef vector<ii> vii;
+typedef set<int> si;
+typedef map<string, int> msi;
+#define watch(x) cout << (#x) << " is " << (x) << endl
+#define debug(a) cerr << #a << ": " << a << endl
+#define ordered_set tree<ii safeseq.push_back(i);
+#define fastio ios_base::sync_with_stdio(false);cin.tie(0);
+#define minheap priority_queue<int,vector<int>,greater<int>>
+//#define minheap priority_queue<ii,vector<ii>,greater<ii>> //for min heap of pair
+//order_of_key (k) : Number of items strictly smaller than k .
+//find_by_order(k) : K-th element in a set (counting from zero)
+
+
+/***************************************************************************************************/
+
+const int N  = 200005;
+const int LIM=200005;
+
+// dist[i][j] : distance b/w city i and city j
+int dist[21][21];
+int dp[21][1<<21];
+int n;
+
+//cost to start from city i and need to visit the cities in mask exactly once and finally return to city 0
+int rec(int i, int mask)
+{
+    if(mask==0)
+    {
+        return dist[i][0];
+    }
+    int ans=inf;
+    if(dp[i][mask]==-1)
+    {
+        for(int j=0;j<n;j++)
+        {
+           if(mask&(1<<j))
+           {
+
+               ans=min(ans, rec(j, mask^(1<<j)) + dist[i][j]);
+           }
+        }
+        dp[i][mask]=ans;
+    }
+    return dp[i][mask];
+}
+
+void solve()
+{
+  cin>>n;
+  for(int i=0;i<n;i++)
+  {
+      for(int j=0;j<n;j++)
+        cin>>dist[i][j];
+  }
+  memset(dp,-1,sizeof(dp));
+  cout<<rec(0,(1<<n)-1-1);
+
+}
+int32_t main()
+{
+  fastio
+  int t=1;
+  // cin>>t;
+  for(int i=1;i<=t;i++)
+  {
+    // cout<<"Case #"<<i<<": "<<endl;
+    solve();
+  }
+ return 0;
+}

@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+using namespace std;
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+#define int long long
+#define ll int
+#define vi vector<int>
+#define vvi vector<vector<int>>
+#define fo(i,a,b) for(int i=a;i<b;i++)
+#define all(x) x.begin(),x.end()
+#define trav(x) for(auto it=x.begin();it!=x.end();it++)
+#define mod 1000000007
+#define Endl '\n'
+#define endl '\n'
+#define PB push_back
+#define MP make_pair
+#define F first
+#define S second
+#define inf 1e9
+#define linf 1e18
+#define ld long double
+typedef pair<int, int> ii;
+typedef vector<ii> vii;
+typedef set<int> si;
+typedef map<string, int> msi;
+#define watch(x) cout << (#x) << " is " << (x) << endl
+#define debug(a) cerr << #a << ": " << a << endl
+#define ordered_set tree<ii safeseq.push_back(i);
+#define fastio ios_base::sync_with_stdio(false);cin.tie(0);
+#define minheap priority_queue<int,vector<int>,greater<int>>
+//#define minheap priority_queue<ii,vector<ii>,greater<ii>> //for min heap of pair
+//order_of_key (k) : Number of items strictly smaller than k .
+//find_by_order(k) : K-th element in a set (counting from zero)
+
+
+/***************************************************************************************************/
+//Partition number
+//4 = 4, 1+3, 2+2, 1+1+1+1 => ordered ways so that sum=4
+const int N=1000005;
+const int LIM=200005;
+
+int dp[1000005];
+void solve()
+{
+   int n,x;
+   cin>>n;
+   //dp[i][j] = no. of ways to make sum j using when last num taken was i
+   //dp[i][j] = dp[i-1][j] + dp[i][j-i]
+   //dp[i][0]=1
+   dp[0]=1;
+   for(int i=1;i<=n;i++)
+   {
+       for(int j=1;j<=n;j++)
+       {
+           if(j-i>=0)
+            dp[j]+=dp[j-i];
+       }
+   }
+   cout<<dp[n]<<endl;
+
+}
+
+
+int32_t main()
+{
+ fastio
+//freopen("input.txt", "r", stdin);
+//freopen("output.txt", "w", stdout);
+  int t=1;
+  cin>>t;
+  for(int i=1;i<=t;i++)
+  {
+   // cout<<"Case #"<<i<<": ";
+    solve();
+  }
+ return 0;
+}
